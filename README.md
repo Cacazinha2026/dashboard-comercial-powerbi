@@ -42,7 +42,7 @@ O objetivo é transformar dados comerciais em informações estratégicas que ap
 ✔ Insight Executivo Dinâmico
 
 ---
----
+
 
 ## 🗄️ Exemplos de SQL
 
@@ -141,8 +141,6 @@ DIVIDE(
     [Faturamento]
 )
 ```
-
-
 
 ## 📷 Dashboard
 
