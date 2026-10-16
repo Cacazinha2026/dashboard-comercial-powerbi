@@ -43,6 +43,55 @@ O objetivo é transformar dados comerciais em informações estratégicas que ap
 
 ---
 
+## 🧮 Exemplos de DAX
+
+### Faturamento
+
+Calcula o faturamento total considerando o preço do produto e a quantidade vendida.
+
+```dax
+Faturamento =
+SUMX(
+    fNotasFiscais,
+    RELATED(dProdutos[VL_Produto]) * fNotasFiscais[Quantidade]
+)
+```
+
+### Lucro
+
+Calcula a diferença entre o faturamento e o custo total.
+
+```dax
+Lucro =
+[Faturamento] - [Custo Total]
+```
+
+### Ticket Médio
+
+Calcula o faturamento dividido pela quantidade de notas fiscais distintas.
+
+```dax
+Ticket Médio =
+DIVIDE(
+    [Faturamento],
+    DISTINCTCOUNT(fNotasFiscais[Cod_NFiscal])
+)
+```
+
+### Margem %
+
+Calcula a relação entre o lucro e o faturamento.
+
+```dax
+Margem % =
+DIVIDE(
+    [Lucro],
+    [Faturamento]
+)
+```
+
+
+
 ## 📷 Dashboard
 
 ### Visão de Clientes
