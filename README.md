@@ -42,6 +42,58 @@ O objetivo é transformar dados comerciais em informações estratégicas que ap
 ✔ Insight Executivo Dinâmico
 
 ---
+---
+
+## 🗄️ Exemplos de SQL
+
+### Criação do banco de dados
+
+```sql
+CREATE DATABASE DashboardComercial;
+GO
+
+USE DashboardComercial;
+GO
+```
+
+### Importação de dados com BULK INSERT
+
+Exemplo de comando utilizado como referência para importar dados de um arquivo CSV para a tabela Departamento.
+
+```sql
+BULK INSERT Departamento
+FROM 'C:\Projeto\BDA\Base\Departamento.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ';'
+);
+```
+
+### Análise de lojas por cidade
+
+Consulta que agrupa as lojas por cidade e contabiliza quantas lojas existem em cada grupo.
+
+```sql
+SELECT
+    Cidade,
+    COUNT(*) AS TotalLojas
+FROM Lojas
+GROUP BY Cidade;
+```
+
+### Validação dos dados importados
+
+Consultas utilizadas para visualizar os primeiros cinco registros das tabelas.
+
+```sql
+SELECT TOP 5 * FROM Clientes;
+SELECT TOP 5 * FROM Produtos;
+SELECT TOP 5 * FROM Departamento;
+SELECT TOP 5 * FROM Lojas;
+SELECT TOP 5 * FROM NotasFiscais;
+```
+
+
 
 ## 🧮 Exemplos de DAX
 
