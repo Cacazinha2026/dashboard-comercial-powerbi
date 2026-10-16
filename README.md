@@ -43,6 +43,24 @@ O projeto utiliza uma modelagem dimensional no Power BI, organizada em uma tabel
 A estrutura permite cruzar informações de vendas por produto, cliente, loja, departamento e período, apoiando a análise dos indicadores comerciais.
 
 ---
+
+### 🔗 Relacionamentos do Modelo
+
+A tabela fato `fNotasFiscais` está relacionada às dimensões do modelo por meio das seguintes colunas:
+
+| Tabela fato | Coluna | Tabela dimensional | Coluna |
+|---|---|---|---|
+| `fNotasFiscais` | `Cod_Produto` | `dProdutos` | `Cod_Produto` |
+| `fNotasFiscais` | `Cod_Cliente` | `dClientes` | `ID_Cliente` |
+| `fNotasFiscais` | `Cod_Loja` | `dLojas` | `Cod_Loja` |
+| `fNotasFiscais` | `Cod_Departamento` | `dDepartamento` | `Cod_Departamento` |
+| `fNotasFiscais` | `Data_Venda` | `dCalendario` | `Date` |
+
+Os cinco relacionamentos estão ativos, com cardinalidade muitos para um (*:1) e direção de filtro cruzado única, conforme verificado nas propriedades do modelo no Power BI.
+
+Essa estrutura permite analisar as vendas por produto, cliente, loja, departamento e período, facilitando a exploração dos indicadores comerciais.
+---
+
 ## 📈 Principais indicadores
 
 ✔ Receita
