@@ -2,11 +2,9 @@
 
 ## 📌 Sobre o Projeto
 
-Este projeto foi desenvolvido para demonstrar um fluxo completo de Business Intelligence, desde a modelagem da base de dados até a construção de um dashboard executivo interativo.
+Projeto de Business Intelligence desenvolvido para analisar dados comerciais e transformar informações de vendas em indicadores que apoiam a tomada de decisão.
 
-O objetivo é transformar dados comerciais em informações estratégicas que apoiem a tomada de decisão.
-
----
+O trabalho contempla consultas SQL, modelagem dimensional, transformação de dados, medidas DAX e construção de um dashboard interativo no Power BI.
 
 ## 🚀 Tecnologias utilizadas
 
@@ -17,36 +15,29 @@ O objetivo é transformar dados comerciais em informações estratégicas que ap
 - DAX
 - Power BI
 
----
-
-
 ## 🧩 Modelagem de Dados
 
-O projeto utiliza uma modelagem dimensional no Power BI, organizada em uma tabela fato de vendas, tabelas dimensionais e uma tabela para organização de medidas.
+O modelo foi organizado em uma tabela fato de vendas, tabelas dimensionais e uma tabela dedicada à organização das medidas.
 
 ### Tabela fato
 
-- **`fNotasFiscais`**: concentra os registros de vendas, incluindo códigos de cliente, departamento, loja, produto e vendedor, além de data da venda, quantidade e código da nota fiscal.
+- **`fNotasFiscais`**: contém os registros de vendas, com códigos de cliente, departamento, loja, produto e vendedor, além de data da venda, quantidade e código da nota fiscal.
 
 ### Tabelas dimensionais
 
-- **`dProdutos`**: informações de produtos, departamentos, custos e valores.
+- **`dProdutos`**: códigos, nomes, departamentos, custos e valores dos produtos.
 - **`dClientes`**: informações cadastrais e características dos clientes.
-- **`dLojas`**: informações das lojas, cidades e departamentos.
+- **`dLojas`**: informações de lojas, cidades e departamentos.
 - **`dDepartamento`**: códigos e nomes dos departamentos.
-- **`dCalendario`**: datas, anos e períodos no formato ano-mês.
+- **`dCalendario`**: datas, anos, meses e períodos no formato ano-mês.
 
 ### Organização das medidas
 
 - **`Medidas`**: reúne medidas e recursos auxiliares utilizados nas análises do dashboard.
 
-A estrutura permite cruzar informações de vendas por produto, cliente, loja, departamento e período, apoiando a análise dos indicadores comerciais.
+## 🔗 Relacionamentos do Modelo
 
----
-
-### 🔗 Relacionamentos do Modelo
-
-A tabela fato `fNotasFiscais` está relacionada às dimensões do modelo por meio das seguintes colunas:
+A tabela fato `fNotasFiscais` está relacionada às dimensões por meio das seguintes colunas:
 
 | Tabela fato | Coluna | Tabela dimensional | Coluna |
 |---|---|---|---|
@@ -56,35 +47,22 @@ A tabela fato `fNotasFiscais` está relacionada às dimensões do modelo por mei
 | `fNotasFiscais` | `Cod_Departamento` | `dDepartamento` | `Cod_Departamento` |
 | `fNotasFiscais` | `Data_Venda` | `dCalendario` | `Date` |
 
-Os cinco relacionamentos estão ativos, com cardinalidade muitos para um (*:1) e direção de filtro cruzado única, conforme verificado nas propriedades do modelo no Power BI.
+Os cinco relacionamentos foram verificados no Power BI. Todos estão ativos, com cardinalidade muitos para um (*:1) e direção de filtro cruzado única.
 
-Essa estrutura permite analisar as vendas por produto, cliente, loja, departamento e período, facilitando a exploração dos indicadores comerciais.
----
+Essa estrutura permite analisar as vendas por produto, cliente, loja, departamento e período.
 
 ## 📈 Principais indicadores
 
-✔ Receita
-
-✔ Lucro
-
-✔ Quantidade Vendida
-
-✔ Ticket Médio
-
-✔ Ranking de Departamentos
-
-✔ Receita por Loja
-
-✔ Receita por Produto
-
-✔ Receita por Cliente
-
-✔ Evolução da Receita
-
-✔ Insight Executivo Dinâmico
-
----
-
+- Faturamento
+- Lucro
+- Quantidade Vendida
+- Ticket Médio
+- Ranking de Departamentos
+- Receita por Loja
+- Receita por Produto
+- Receita por Cliente
+- Evolução da Receita
+- Insight Executivo Dinâmico
 
 ## 🗄️ Exemplos de SQL
 
@@ -100,20 +78,24 @@ GO
 
 ### Importação de dados com BULK INSERT
 
-Exemplo de comando utilizado como referência para importar dados de um arquivo CSV para a tabela Departamento.
+Exemplo de importação de dados CSV para a tabela `Departamento`.
 
 ```sql
 BULK INSERT Departamento
-FROM 'C:\Projeto\BDA\Base\Departamento.csv'
+FROM 'C:\CAMINHO\Departamento.csv'
 WITH (
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';'
+    FIELDTERMINATOR = ';',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001'
 );
 ```
 
+**Observação:** substitua `C:\CAMINHO\Departamento.csv` pelo caminho correto do arquivo utilizado no ambiente de execução antes de apresentar esse comando como script executável.
+
 ### Análise de lojas por cidade
 
-Consulta que agrupa as lojas por cidade e contabiliza quantas lojas existem em cada grupo.
+Consulta para agrupar as lojas por cidade e contar os registros de cada grupo.
 
 ```sql
 SELECT
@@ -125,7 +107,7 @@ GROUP BY Cidade;
 
 ### Validação dos dados importados
 
-Consultas utilizadas para visualizar os primeiros cinco registros das tabelas.
+Consultas para visualizar os primeiros cinco registros de cada tabela.
 
 ```sql
 SELECT TOP 5 * FROM Clientes;
@@ -135,13 +117,11 @@ SELECT TOP 5 * FROM Lojas;
 SELECT TOP 5 * FROM NotasFiscais;
 ```
 
-
-
 ## 🧮 Exemplos de DAX
 
 ### Faturamento
 
-Calcula o faturamento total considerando o preço do produto e a quantidade vendida.
+Calcula o valor total das vendas a partir do preço dos produtos e das quantidades vendidas.
 
 ```dax
 Faturamento =
@@ -153,7 +133,7 @@ SUMX(
 
 ### Lucro
 
-Calcula a diferença entre o faturamento e o custo total.
+Calcula a diferença entre o faturamento e o custo total, utilizando a medida `[Custo Total]` existente no modelo.
 
 ```dax
 Lucro =
@@ -162,7 +142,7 @@ Lucro =
 
 ### Ticket Médio
 
-Calcula o faturamento dividido pela quantidade de notas fiscais distintas.
+Divide o faturamento pela quantidade de notas fiscais distintas.
 
 ```dax
 Ticket Médio =
@@ -187,32 +167,37 @@ DIVIDE(
 ## 📷 Dashboard
 
 ### Visão de Clientes
+
 ![Dashboard de Clientes](clientes.png)
 
 ### Evolução da Receita
+
 ![Evolução da Receita](evolucao.png)
 
 ### Desempenho por Loja
+
 ![Receita por Loja](loja.png)
 
 ### Análise de Produtos
+
 ![Análise de Produtos](produtos.png)
 
 ### Receita por Departamento
+
 ![Receita por Departamento](receita%20por%20departamento.png)
 
 ## 💡 Análises e valor para o negócio
 
-Este projeto reúne diferentes visões dos dados comerciais para facilitar o acompanhamento dos resultados e apoiar a tomada de decisão.
+O dashboard reúne diferentes perspectivas dos dados comerciais para facilitar o acompanhamento dos resultados e apoiar a análise do desempenho.
 
-- **Clientes:** identificar os clientes com maior contribuição para o faturamento.
-- **Evolução da receita:** acompanhar o comportamento das vendas ao longo do tempo.
-- **Lojas:** comparar o desempenho comercial entre unidades.
-- **Produtos:** analisar os produtos com maior participação nas vendas.
-- **Departamentos:** visualizar a contribuição de cada departamento para a receita.
+- **Clientes:** identificação dos clientes com maior contribuição para o faturamento.
+- **Evolução da receita:** acompanhamento do comportamento das vendas ao longo do tempo.
+- **Lojas:** comparação do desempenho comercial entre unidades.
+- **Produtos:** análise dos produtos com maior participação nas vendas.
+- **Departamentos:** avaliação da contribuição de cada departamento para a receita.
 
-A proposta é transformar dados em informações mais claras, facilitando a identificação de tendências, oportunidades e pontos que merecem atenção.
+A combinação dos indicadores e das visualizações permite explorar os dados sob diferentes perspectivas e identificar tendências e oportunidades de análise.
 
 ## 📚 Aprendizados
 
-Durante o desenvolvimento, trabalhei com consultas SQL, transformação de dados, modelagem dimensional, medidas DAX e construção de visualizações no Power BI.
+Durante o desenvolvimento do projeto, trabalhei com consultas SQL, importação e validação de dados, transformação de dados, modelagem dimensional, relacionamentos entre tabelas, medidas DAX e construção de visualizações no Power BI.
