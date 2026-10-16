@@ -44,3 +44,18 @@ O objetivo é transformar dados comerciais em informações estratégicas que ap
 ---
 
 ## 📷 Dashboard
+
+### Visão de Clientes
+![Dashboard de Clientes](clientes.png)
+
+### Evolução da Receita
+![Evolução da Receita](evolucao.png)
+
+### Desempenho por Loja
+![Receita por Loja](loja.png)
+
+### Análise de Produtos
+![Análise de Produtos](produtos.png)
+
+### Receita por Departamento
+![Receita por Departamento](receita%20por%20departamento.png)
