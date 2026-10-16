@@ -19,6 +19,30 @@ O objetivo é transformar dados comerciais em informações estratégicas que ap
 
 ---
 
+
+## 🧩 Modelagem de Dados
+
+O projeto utiliza uma modelagem dimensional no Power BI, organizada em uma tabela fato de vendas, tabelas dimensionais e uma tabela para organização de medidas.
+
+### Tabela fato
+
+- **`fNotasFiscais`**: concentra os registros de vendas, incluindo códigos de cliente, departamento, loja, produto e vendedor, além de data da venda, quantidade e código da nota fiscal.
+
+### Tabelas dimensionais
+
+- **`dProdutos`**: informações de produtos, departamentos, custos e valores.
+- **`dClientes`**: informações cadastrais e características dos clientes.
+- **`dLojas`**: informações das lojas, cidades e departamentos.
+- **`dDepartamento`**: códigos e nomes dos departamentos.
+- **`dCalendario`**: datas, anos e períodos no formato ano-mês.
+
+### Organização das medidas
+
+- **`Medidas`**: reúne medidas e recursos auxiliares utilizados nas análises do dashboard.
+
+A estrutura permite cruzar informações de vendas por produto, cliente, loja, departamento e período, apoiando a análise dos indicadores comerciais.
+
+---
 ## 📈 Principais indicadores
 
 ✔ Receita
